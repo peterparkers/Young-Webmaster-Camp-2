@@ -9,7 +9,14 @@ $.getJSON(url,function(peopleObj) {
 	//Value to display list name in each major
 	var listMorning = "";
 	var listAfternoon = "";
-	
+    
+    var ctShowMorning = 25;
+    var dsShowMorning = 20;
+    var mkShowMorning = 18;
+    var pgShowMorning = 23;
+    var max;
+    var idMajor = ["#ct", "#ds", "#mk", "#pg"];
+
 	//push obj of all major in each array allow each major
 	for(var i = 0; i < peopleObj.length; i++){
         peopleObj[i].firstName = peopleObj[i].firstName.replace(/^\s+|\s+$/gm,'');
@@ -33,7 +40,8 @@ $.getJSON(url,function(peopleObj) {
 	dsMajor.sort(function(a, b) {return parseInt(a.interviewRef.substring(2,4)) - parseInt(b.interviewRef.substring(2,4));});
 	mkMajor.sort(function(a, b) {return parseInt(a.interviewRef.substring(2,4)) - parseInt(b.interviewRef.substring(2,4));});
 	pgMajor.sort(function(a, b) {return parseInt(a.interviewRef.substring(2,4)) - parseInt(b.interviewRef.substring(2,4));});
-	
+    var allShow = [ctShowMorning, dsShowMorning, mkShowMorning, pgShowMorning, ctMajor.length, dsMajor.length, mkMajor.length, pgMajor.length];
+    
 	//User can press enter instead of click on search button
 	document.getElementById("nameInput").addEventListener("keyup", function(event) {
 		event.preventDefault();
@@ -54,76 +62,68 @@ $.getJSON(url,function(peopleObj) {
 	//Show content list name
 	function ctShow(){
 		clearShow();
-		for(var i = 0; i < 25; i++){
+		for(var i = 0; i < ctShowMorning; i++){
 			listMorning += "<p>" + ctMajor[i].interviewRef + " " + ctMajor[i].firstName + " " + ctMajor[i].lastName + "</p>";
 		}
-		for(var i = 25; i < ctMajor.length; i++){
+		for(var i = ctShowMorning; i < ctMajor.length; i++){
 			listAfternoon += "<p>" + ctMajor[i].interviewRef + " " + ctMajor[i].firstName + " " + ctMajor[i].lastName + "</p>";
 		}
-		$("#list-name-morning").html(listMorning);
-		$("#list-name-afternoon").html(listAfternoon);
-		$("#list-box").height("1500px");
-		$("#list-box-morning").height("79%");
-		$("#list-box-afternoon").height("97%");
-		$("#ct-text").css("background-color","#F24C27");
-		$("#ct-text-inside").css("color","white");
+        listShow(listMorning, listAfternoon, 1);
 	}
 	//Show design list name
 	function dsShow(){
 		clearShow();
-		for(var i = 0; i < 20; i++){
+		for(var i = 0; i < dsShowMorning; i++){
 			listMorning += "<p>" + dsMajor[i].interviewRef + " " + dsMajor[i].firstName + " " + dsMajor[i].lastName + "</p>";
 		}
-		for(var i = 20; i < dsMajor.length; i++){
+		for(var i = dsShowMorning; i < dsMajor.length; i++){
 			listAfternoon += "<p>" + dsMajor[i].interviewRef + " " + dsMajor[i].firstName + " " + dsMajor[i].lastName + "</p>";
 		}
-		$("#list-name-morning").html(listMorning);
-		$("#list-name-afternoon").html(listAfternoon);
-		$("#list-box").height("1600px");
-		$("#list-box-morning").height("61%");
-		$("#list-box-afternoon").height("91%");
-		$("#ds-text").css("background-color","#F24C27");
-		$("#ds-text-inside").css("color","white");
+		listShow(listMorning, listAfternoon, 2);
 	}
 	//Show marketing list name
 	function mkShow(){
 		clearShow();
-		for(var i = 0; i < 18; i++){
+		for(var i = 0; i < mkShowMorning; i++){
 			listMorning += "<p>" + mkMajor[i].interviewRef + " " + mkMajor[i].firstName + " " + mkMajor[i].lastName + "</p>";
 		}
-		for(var i = 18; i < mkMajor.length; i++){
+		for(var i = mkShowMorning; i < mkMajor.length; i++){
 			listAfternoon += "<p>" + mkMajor[i].interviewRef + " " + mkMajor[i].firstName + " " + mkMajor[i].lastName + "</p>";
 		}
-		$("#list-name-morning").html(listMorning);
-		$("#list-name-afternoon").html(listAfternoon);
-		$("#list-box").height("1600px");
-		$("#list-box-morning").height("55%");
-		$("#list-box-afternoon").height("93%");
-		$("#mk-text").css("background-color","#F24C27");
-		$("#mk-text-inside").css("color","white");
+		listShow(listMorning, listAfternoon, 3);
 	}
 	//Show programming list name
 	function pgShow(){
 		clearShow();
-		for(var i = 0; i < 23; i++){
+		for(var i = 0; i < pgShowMorning; i++){
 			listMorning += "<p>" + pgMajor[i].interviewRef + " " + pgMajor[i].firstName + " " + pgMajor[i].lastName + "</p>";
 		}
-		for(var i = 23; i < pgMajor.length; i++){
+		for(var i = pgShowMorning; i < pgMajor.length; i++){
 			listAfternoon += "<p>" + pgMajor[i].interviewRef + " " + pgMajor[i].firstName + " " + pgMajor[i].lastName + "</p>";
 		}
-		$("#list-name-morning").html(listMorning);
-		$("#list-name-afternoon").html(listAfternoon);
-		$("#list-box").height("2000px");
-		$("#list-box-morning").height("55%");
-		$("#list-box-afternoon").height("93%");
-		$("#pg-text").css("background-color","#F24C27");
-		$("#pg-text-inside").css("color","white");
+		listShow(listMorning, listAfternoon, 4);
 	}
 
 	//default show
 	ctShow();
 
-	//clear all listname when click on another major
+    //Display list name ( 2 sections morning and afternoon)
+    function listShow(listMorning, listAfternoon, type){
+        max = (allShow[type - 1] <= (allShow[type + 3] - allShow[type - 1]) ? allShow[type + 3] - allShow[type - 1] : allShow[type - 1]);
+        var listBoxHeight = (max * 44) + 180;
+        var mHeight = (allShow[type - 1] * 44) + 65;
+        var aHeight = ((allShow[type + 3] - allShow[type - 1]) * 44) + 65;
+
+        $("#list-name-morning").html(listMorning);
+        $("#list-name-afternoon").html(listAfternoon);
+        $("#list-box").height(listBoxHeight + "px");
+        $("#list-box-morning").height(mHeight + "px");
+        $("#list-box-afternoon").height(aHeight + "px");
+        $(idMajor[type - 1] + "-text").css("background-color","#F24C27");
+        $(idMajor[type - 1] + "-text-inside").css("color","white");
+    }
+
+    //clear all listname when click on another major
 	function clearShow(){
 		listMorning = "";
 		listAfternoon = "";
