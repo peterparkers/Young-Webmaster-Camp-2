@@ -5,13 +5,15 @@ $.getJSON(url,function(peopleObj) {
 	var dsMajor = []; //design major list name
 	var mkMajor = []; //marketing major list name
 	var pgMajor = []; //programming major list name
-
+    
 	//Value to display list name in each major
 	var listMorning = "";
 	var listAfternoon = "";
 	
 	//push obj of all major in each array allow each major
 	for(var i = 0; i < peopleObj.length; i++){
+        peopleObj[i].firstName = peopleObj[i].firstName.replace(/^\s+|\s+$/gm,'');
+        peopleObj[i].lastName = peopleObj[i].lastName.replace(/^\s+|\s+$/gm,'');
 		if(peopleObj[i].major == "content"){
 			ctMajor.push(peopleObj[i]);
 		}
@@ -37,16 +39,17 @@ $.getJSON(url,function(peopleObj) {
 		event.preventDefault();
 		if (event.keyCode === 13) {
 			document.getElementById("search").click();
-		}
+        }
+        
 	});
 
 	//if user click on this id it will do function
 	document.getElementById("major-box-ct").addEventListener("click", ctShow);
 	document.getElementById("major-box-ds").addEventListener("click", dsShow);
 	document.getElementById("major-box-mk").addEventListener("click", mkShow);
-	document.getElementById("major-box-pg").addEventListener("click", pgShow);
-	document.getElementById("search").addEventListener("click", searchName);
-	document.getElementById("clear").addEventListener("click", clearName);
+    document.getElementById("major-box-pg").addEventListener("click", pgShow);
+    document.getElementById("search").addEventListener("click", searchName);
+    document.getElementById("clear").addEventListener("click", clearName);
 
 	//Show content list name
 	function ctShow(){
@@ -132,64 +135,92 @@ $.getJSON(url,function(peopleObj) {
 		$("#ds-text-inside").css("color","#0f0f0f");
 		$("#mk-text-inside").css("color","#0f0f0f");
 		$("#pg-text-inside").css("color","#0f0f0f");
-	}
+    }
+
+    //display search result
+    function showSearchResult(resultName, lResults){
+        var boxHeight = 0;
+        var resultHeight = 0;
+        if(resultName.length > 1){
+            boxHeight = 145 + (40 * (lResults - 1)) - (3.9 * (lResults - 1));
+            resultHeight = (40 * lResults) - (3.9 * (lResults - 1));
+            $("#search-box").height(boxHeight + "px");
+            $("#search-result").height(resultHeight + "px");
+            $("#search-result").css("background-color", "white");
+            $("#search-result-text").html(resultName);
+        }
+        if(resultName.length == 1){
+            $("#search-box").height("145px");
+            $("#search-result").height("40px");
+            $("#search-result").css("background-color", "white");
+            $("#search-result-text").html("<h5>ไม่พบรายชื่อที่ค้นหา</h5>");
+        }
+        if(resultName.length == 0){
+            $("#search-box").height("100px");
+			$("#search-result").height("0");
+			$("#search-result-text").html("");
+        }
+    }
+
+    //check if result of search array is duplicate
+    function checkDuplicate(results){
+        var uniqueNames = [];
+        $.each(results, function(i, el){
+            if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+        });
+        return uniqueNames;
+    }
 
 	//search name (must be Thai language)
 	function searchName(){
 		var results = [];
 		var input = $("#nameInput").val();
-		var resultName = "<h5>ไม่พบรายชื่อที่ค้นหา</h5>";
-		var english = /^[A-Za-z0-9]*$/;
-		var boxHeight = 0;
-		var resultHeight = 0;
+		var resultName = "";
+        var english = /^[A-Za-z0-9]*$/;
+        var lResults;
+        var d;
 		if(input.length > 0){
 			if(!(english.test(input))){
 				for(var i = 0; i < peopleObj.length; i++) {
 					for(key in peopleObj[i]) {
 						if(peopleObj[i][key].indexOf(input)!=-1) {
 							results.push(peopleObj[i]);
-							resultName = "";
 						}
 					}
-				}
-				if(results.length >= 1){
-					for(var j = 0; j < results.length; j++){
-						resultName += "<h5>" + results[j].firstName + " " + results[j].lastName + " สาขา " + results[j].major + "</h5>";
-					}
-					boxHeight = 145 + (40 * (results.length - 1)) - (3.9 * (results.length - 1));
-					resultHeight = (40 * results.length) - (3.9 * (results.length - 1));
-					$("#search-box").height(boxHeight + "px");
-					$("#search-result").height(resultHeight + "px");
-					$("#search-result").css("background-color", "white");
-					$("#search-result-text").html(resultName);
+                }
+                d = checkDuplicate(results);
+				if(d.length >= 1){
+					for(var j = 0; j < d.length; j++){
+						resultName += "<h5>" + d[j].firstName + " " + d[j].lastName + " สาขา " + d[j].major + " " + "<mark>" + d[j].interviewRef + "</mark>"+ "</h5>";
+                    }
+                    lResults = d.length;
+                    
+                    showSearchResult(resultName, lResults);
+					
 				}
 				else{
-					$("#search-box").height("145px");
-					$("#search-result").height("40px");
-					$("#search-result").css("background-color", "white");
-					$("#search-result-text").html(resultName);
+                    resultName = "1";
+					showSearchResult(resultName, lResults);
 				}
 			}
 			else if(english.test(input)){
-				$("#search-box").height("145px");
-				$("#search-result").height("40px");
-				$("#search-result").css("background-color", "white");
-				$("#search-result-text").html(resultName);
+                resultName = "1";
+				showSearchResult(resultName, lResults);
 			}
 		}
 		else{
-			$("#search-box").height("100px");
-			$("#search-result").height("0");
-			$("#search-result-text").html("");
+			showSearchResult(resultName, lResults);
 		}
-	}
+    }
+
 	//Clear all value in input textbox and search result
 	function clearName(){
 		$("#search-box").height("100px");
 		$("#search-result").height("0");
 		$("#nameInput").val("");
 		$("#search-result-text").html("");
-	}
+    }
+    setInterval(searchName, 100);
 })
 
 //Scroll up to the top of page
