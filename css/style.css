@@ -179,6 +179,7 @@ Content
     width: 95%;
     margin: 0 auto;
     padding: 0;
+    max-width: 1350px;
 }
 
 /* Search section */
@@ -301,6 +302,7 @@ Footer
 footer{
     background: #222222;
     height: 200px;
+    height: 100%;
     width: 100%;
 }
 .social{
