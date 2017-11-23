@@ -1,13 +1,20 @@
+/*------------------------------------*
+Young webmaster camp
+*------------------------------------*/
+/**
+* Header............canvas and topic
+* Content...............Search section and list name section
+* Footer...........Contact me
+*/
 body{
     margin: 0;
     padding: 0;
     border: 0;
     background: #ebebeb;
-    margin: 0 auto;
 }
 h1{
-    font-family: 'Chelsea Market', cursive;
-    color: black;
+    font-family: 'Josefin Sans', sans-serif;
+    color: rgb(255, 255, 255);
     font-size: 400%;
     margin: 0;
     padding: 0;
@@ -15,7 +22,7 @@ h1{
 }
 h2{
     font-family: 'Prompt', sans-serif;
-    color: rgb(36, 36, 36);
+    color: rgba(36, 36, 36);
     font-size: 110%;
     margin: 0;
     padding: 0;
@@ -58,6 +65,16 @@ p:hover{
     background: #F24C27;
     color: white;
 }
+b{
+    background: rgba(255, 255, 255, 0.8);
+    padding-left: 10px;
+    padding-right: 10px;
+    color: black;
+}
+/*------------------------------------*
+Top and down button
+*------------------------------------*/
+
 #top{
     position: fixed;
     top: 86%;
@@ -78,11 +95,15 @@ p:hover{
 #down:hover{
     transform: scale(1.1);
 }
-/* header section */
+
+/*------------------------------------*
+Header
+*------------------------------------*/
+
 header{
     width: 100%;
     height: 70px;;
-    background: #222222;
+    background: white;
     margin: 0;
 }
 article{
@@ -125,18 +146,17 @@ canvas{
     margin: 0;
     padding: 0;
     border: 0;
+    background: #111111;
 }
 #header{
-    max-width: 100%;
+    width: 100%;
     height: 500px;
     background: white;
     margin: 0;
-    border-bottom: 3px solid black;
 }
 #header-inside{
     position: relative;
-    max-width: 100%;
-    text-align: center;
+    width: 100%;
 }
 #inner-canvas{
     position: absolute;
@@ -146,12 +166,17 @@ canvas{
     text-align: center;
 }
 #topic{
-    font-family: 'Monoton', cursive;
-    color: black;
-    font-size: 400%;
+    font-family: 'Assistant', sans-serif;
+    color: white;
+    font-size: 240%;
+    padding: 0;
 }
+
+/*------------------------------------*
+Content
+*------------------------------------*/
 #content{
-    max-width: 1350px;
+    width: 95%;
     margin: 0 auto;
     padding: 0;
 }
@@ -239,19 +264,16 @@ input[type="button"]:hover{
 /* list name section */
 #list-box{
     width: 100%;
-    height: 1500px;
 }
 #list-box-morning{
     float: left;
     width: 45%;
-    height: 63%;
     background: white;
     margin: 25px;
 }
 #list-box-afternoon{
     float: right;
     width: 45%;
-    height: 99%;
     background: white;
     margin: 25px;
 }
@@ -261,24 +283,21 @@ input[type="button"]:hover{
     height: 65px;
     text-align: center;
 }
-#list-box-morning-content{
-    width: 100%;
-    height: 100%;
-    text-align: center;
-}
+
 #list-box-afternoon-header{
     width: 100%;
     background: rgb(243, 243, 243);
     height: 65px;
     text-align: center;
 }
-#list-box-afternoon-content{
+.list-box-content{
     width: 100%;
-    height: 100%;
     text-align: center;
 }
 
-/* footer */
+/*------------------------------------*
+Footer
+*------------------------------------*/
 footer{
     background: #222222;
     height: 200px;
