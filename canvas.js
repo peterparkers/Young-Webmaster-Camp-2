@@ -9,6 +9,11 @@ var maxRadius = 40;
 
 var colorArray = ['#56B9D0', '#F24C27'];
 
+window.addEventListener('resize',function(){
+    canvas.width = window.innerWidth;
+    init();
+})
+
 function Circle(x, y, dx, dy, radius){
     this.x = x;
     this.y = y;
