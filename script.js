@@ -42,6 +42,10 @@ $.getJSON(url,function(peopleObj) {
 	pgMajor.sort(function(a, b) {return parseInt(a.interviewRef.substring(2,4)) - parseInt(b.interviewRef.substring(2,4));});
     var allShow = [ctShowMorning, dsShowMorning, mkShowMorning, pgShowMorning, ctMajor.length, dsMajor.length, mkMajor.length, pgMajor.length];
     
+	for(var q = 0; q < peopleObj.length; q++){
+		peopleObj[q].firstName = peopleObj[q].firstName + " " + peopleObj[q].lastName;
+		peopleObj[q].lastName = "";
+	}
 	//User can press enter instead of click on search button
 	document.getElementById("nameInput").addEventListener("keyup", function(event) {
 		event.preventDefault();
