@@ -120,27 +120,9 @@ aside{
     padding-top: 10px;
     margin: 0;
 }
-ul{
-    list-style: none;
-}
-li{
-    display: inline;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-aside a{
-    font-family: 'Prompt', sans-serif;
-    text-decoration: none;
-    color: white;
-    padding: 10px;
-}
-aside a:hover{
-    background: #56B9D0;
-    border-radius: 5%;
-}
-#current{
-    background: #56B9D0;
-    border-radius: 5%;
+#semi{
+    background: white;
+    color: black;
 }
 canvas{
     margin: 0;
@@ -335,33 +317,26 @@ footer{
         padding-top: 15px;
         margin: 0;
     }
-    aside{
-        float: right;
-        width: 40%;
-        padding-right: 20px;
-        padding-top: 10px;
-        margin: 0;
-    }
-    ul{
-        list-style: none;
-        padding: 0;
-    }
-    li{
-        display: block;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
+    
     #header{
-        background: white;
+        background: #111111;
+        padding-top: 120px;
+        height: 250px;
     }
     #top{
         display: none;
     }
+    #down{
+        display: none;
+    }
+    canvas{
+        display: none;
+    }
     h1{
-        font-size: 200%;
+        font-size: 300%;
     }
     h2{
-        font-size: 110%;
+        font-size: 130%;
     }
     h3{
         font-size: 110%;
@@ -399,6 +374,7 @@ footer{
         margin-top: 60px;
         width: 90%;
         padding: 0;
+        margin: 4%;
     }
     .major-box{
         width: 20%;
@@ -434,15 +410,21 @@ footer{
         display: none;
     }
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 700px) {
     body{
         width: 100%;
     }
     header{
         width: 100%;
-        height: 300px;;
-        background: #222222;
+        height: 100px;;
+        background: white;
         text-align: center;
+    }
+    #top{
+        display: none;
+    }
+    #down{
+        display: none;
     }
     canvas{
         display: none;
@@ -457,28 +439,16 @@ footer{
     article img{
         width: 150px;
     }
-    aside{
-        width: 100%;
-        margin: 0 auto;
-        padding: 0;
-    }
-    ul{
-        list-style: none;
-        padding: 0;
-    }
-    li{
-        display: block;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
     #header{
-        background: white;
+        background: black;
+        height: 200px;
+        padding-top: 70px;
     }
     #top{
         display: none;
     }
     h1{
-        font-size: 200%;
+        font-size: 160%;
     }
     h2{
         font-size: 110%;
@@ -494,6 +464,9 @@ footer{
     }
     #topic{
         font-size: 210%;
+    }
+    #content{
+        width: 100%;
     }
     #search-box{
         height: 100px;
